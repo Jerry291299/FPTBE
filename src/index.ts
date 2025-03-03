@@ -37,6 +37,10 @@ const {
 } = require("./utils/Cloudinary");
 const JWT_SECRET = process.env.JWT_SECRET as string;
 const router = Router();
+const allowedOrigins = [
+  "https://fptfe.vercel.app", // Your deployed frontend
+  "http://localhost:3000" // Allow local testing (optional)
+];
 mongoose
   .connect(
     "mongodb+srv://ungductrungtrung:Jerry2912@cluster0.4or3syc.mongodb.net/",
@@ -48,7 +52,19 @@ mongoose
   .then(() => console.log("DB connection successful"))
   .catch((err) => console.log(err));
 
-app.use(cors());
+  app.use(
+    cors({
+      origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error("CORS not allowed"));
+        }
+      },
+      methods: ["GET", "POST", "PUT", "DELETE"],
+      allowedHeaders: ["Content-Type", "Authorization"]
+    })
+  );
 app.use(bodyParser.json());
 
 // Định nghĩa kiểu cho userSockets

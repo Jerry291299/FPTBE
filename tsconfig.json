@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "./build",
+    "strict": true,
+    "esModuleInterop": true,
+    "typeRoots": ["./node_modules/@types", "./src/types"]
+  },
+  "include": [
+    "src/**/*.ts",         // Include all TypeScript files in the src folder
+    "src/middleware/uploadImage.js",   // If you need to include JS files too
+    "src/index.ts", 
+    "src/utils/Cloudinary.js",         // Include JS files if needed
+    "src/types/custom.d.ts"  ,        // Explicitly include the custom.d.ts file
+ "src/middleware/Kickuser.ts" 
+ ],
+  "exclude": ["node_modules"]
+}

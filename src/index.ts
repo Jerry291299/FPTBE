@@ -48,7 +48,13 @@ mongoose
   .then(() => console.log("DB connection successful"))
   .catch((err) => console.log(err));
 
-app.use(cors());
+  app.use(
+    cors({
+      origin: "https://fptfe.vercel.app/", // Allow all origins for now
+      methods: ["GET", "POST", "PUT", "DELETE"],
+      allowedHeaders: ["Content-Type", "Authorization"]
+    })
+  );
 app.use(bodyParser.json());
 
 // Định nghĩa kiểu cho userSockets
